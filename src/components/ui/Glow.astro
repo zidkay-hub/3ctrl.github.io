@@ -1,0 +1,24 @@
+---
+// The Figma "Shadow" frame: a 1065x340 box holding two large radial washes (yellow + teal).
+// Values are the exact gradient transforms from the design (ellipse radii 392x248, centers inside a
+// 1440-wide layer offset -96px), expressed in rem so they scale with the page.
+// `flip` rotates the whole box 180deg, which is how the Content Engine section uses it.
+interface Props {
+	flip?: boolean;
+	class?: string;
+}
+
+const { flip = false, class: className } = Astro.props;
+const placement = className ?? 'top-[0.00937rem] left-1/2 -translate-x-1/2';
+---
+
+<div
+	class:list={['pointer-events-none absolute h-[21.25rem] w-[66.5625rem]', placement, flip && 'rotate-180']}
+	aria-hidden="true"
+>
+	<div
+		class="absolute top-0 left-[-6rem] h-[21.25rem] w-[90rem]"
+		style="background:radial-gradient(ellipse 24.5rem 15.5rem at 45.9rem 2.2825rem, rgba(234,216,123,0.6), rgba(234,216,123,0) 100%), radial-gradient(ellipse 24.5rem 15.5rem at 31.5rem 3.9944rem, rgba(142,225,218,0.4), rgba(142,225,218,0) 100%);"
+	>
+	</div>
+</div>

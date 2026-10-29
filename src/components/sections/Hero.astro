@@ -1,0 +1,148 @@
+---
+import { Image } from 'astro:assets';
+import Button from '../ui/Button.astro';
+import Header from './Header.astro';
+import cardA from '../../assets/images/hero/card-a.jpg';
+import cardB from '../../assets/images/hero/card-b.jpg';
+import cardBlue from '../../assets/images/hero/card-blue.jpg';
+import cardCream from '../../assets/images/hero/card-cream.jpg';
+import cardC from '../../assets/images/hero/card-c.jpg';
+import phoneClinician from '../../assets/images/hero/phone-clinician.jpg';
+import chart from '../../assets/images/hero/chart.svg';
+import arrow from '../../assets/images/hero/arrow.svg';
+import play from '../../assets/images/hero/play.svg';
+
+const cardBase =
+	'absolute overflow-clip rounded-[1.18644rem] bg-mist shadow-[0_1.52544rem_3.55931rem_0_rgba(15,23,42,0.1)]';
+const tagBase =
+	'absolute left-0 w-[12.28813rem] bg-[rgba(15,23,42,0.82)] p-[0.84744rem] text-[0.59325rem] leading-[0.88981rem] font-bold tracking-[0.04746rem] whitespace-nowrap text-white';
+---
+
+<section
+	class="relative h-[67.25rem] overflow-hidden bg-navy"
+	data-hero
+>
+	<div class="pointer-events-none absolute inset-0 opacity-90" style="background:radial-gradient(60rem 28rem at 72% 40%, rgba(22,136,194,0.16), transparent 70%), radial-gradient(45rem 25rem at 20% 15%, rgba(22,136,194,0.09), transparent 70%);"></div>
+
+	<Header />
+
+	<div
+		class="absolute top-[9.085rem] left-1/2 flex w-[39.2625rem] max-w-[47.5rem] -translate-x-1/2 flex-col gap-[1.125rem] px-[1.5rem]"
+	>
+		<h1 class="flex w-[36.2625rem] flex-col items-center gap-[2.5rem] px-[4.25rem] pt-[1.25rem] text-center text-[3.875rem] leading-[1.875rem] font-extrabold tracking-[-0.125rem] whitespace-nowrap" data-hero-heading>
+			<span class="block text-white" data-hero-line>Clinical expertise</span>
+			<span class="block text-gold" data-hero-line>meets its perfect audience.</span>
+		</h1>
+		<p class="w-max self-center pt-[0.8125rem] text-center text-[1.375rem] leading-[2.26875rem] whitespace-nowrap text-slate-text" data-hero-sub>
+			Clinician-led strategy and standout creative for healthcare brands ready to grow.
+		</p>
+		<div class="flex justify-center gap-[0.75rem] pt-[1.125rem]" data-hero-cta>
+			<Button href="#book">
+				Start Your Project
+				<img src={arrow.src} alt="" class="size-[0.86138rem]" />
+			</Button>
+			<Button variant="outline" class="gap-[0.625rem]" data-reel-open aria-haspopup="dialog">
+				<img src={play.src} alt="" class="h-[0.97094rem] w-[0.77675rem]" />
+				Watch Demo Reel
+			</Button>
+		</div>
+	</div>
+
+	<!-- Showcase: absolute-positioned collage authored on a 1440px stage -->
+	<div class="absolute bottom-[-0.25rem] left-1/2 h-[35.6875rem] w-[90rem] -translate-x-1/2 overflow-clip" data-hero-stage>
+		<div class={`${cardBase} top-[13.42125rem] left-[6.01687rem] h-[16.10169rem] w-[11.18644rem]`} data-depth="0.35">
+			<Image src={cardA} alt="" class="size-full object-cover" widths={[360]} />
+		</div>
+		<div class={`${cardBase} top-[16.95688rem] left-[12.25938rem] h-[19.15256rem] w-[12.28813rem]`} data-depth="0.22">
+			<Image src={cardB} alt="" class="size-full object-cover" widths={[400]} />
+			<p class={`${tagBase} top-[16.54688rem]`}>PATIENT-FIRST CREATIVE</p>
+		</div>
+
+		<div
+			class="absolute top-[11.36375rem] left-[22.71rem] h-[24.74575rem] w-[15.08475rem] overflow-clip rounded-[1.18644rem] bg-brand px-[1.52544rem] pt-[1.69494rem] shadow-[0_1.52544rem_3.55931rem_0_rgba(15,23,42,0.1)]"
+			data-depth="0.12"
+		>
+			<p class="w-[12.03388rem] text-[0.76269rem] leading-[1.02969rem] font-extrabold text-white">
+				CONTENT THAT EARNS ATTENTION
+			</p>
+			<p class="pt-[1.01694rem] text-[3.22031rem] leading-[3.22031rem] font-bold tracking-[-0.22542rem] whitespace-nowrap text-white">
+				3.6M+
+			</p>
+			<p class="pt-[0.339rem] text-[0.59325rem] leading-[0.88981rem] whitespace-nowrap text-white opacity-70">
+				patients reached in 90 days
+			</p>
+			<div class="absolute top-[10.86812rem] left-0 h-[13.89831rem] w-[15.08475rem]">
+				<Image src={cardBlue} alt="" class="size-full object-cover" widths={[480]} />
+			</div>
+		</div>
+
+		<div
+			class="absolute top-[10.9425rem] left-[52.21625rem] h-[24.74575rem] w-[15.08475rem] overflow-clip rounded-[1.18644rem] bg-cream px-[1.52544rem] pt-[1.69494rem] shadow-[0_1.52544rem_3.55931rem_0_rgba(15,23,42,0.1)]"
+			data-depth="0.12"
+		>
+			<p class="text-[0.76269rem] leading-[1.02969rem] font-extrabold whitespace-nowrap text-ink">
+				STRATEGY THAT COMPOUNDS
+			</p>
+			<p class="pt-[1.01694rem] text-[3.22031rem] leading-[3.22031rem] font-bold tracking-[-0.22542rem] whitespace-nowrap text-ink">
+				10×
+			</p>
+			<p class="pt-[0.339rem] text-[0.59325rem] leading-[0.88981rem] whitespace-nowrap text-ink opacity-70">
+				average growth partner ROI
+			</p>
+			<div class="absolute top-[10.86812rem] left-0 h-[13.89831rem] w-[15.08475rem]">
+				<Image src={cardCream} alt="" class="size-full object-cover" widths={[480]} />
+			</div>
+		</div>
+
+		<div class={`${cardBase} top-[16.86875rem] left-[65.46313rem] h-[19.15256rem] w-[12.28813rem]`} data-depth="0.22">
+			<Image src={cardC} alt="" class="size-full object-cover" widths={[400]} />
+			<p class={`${tagBase} top-[16.54688rem]`}>CLINICIAN-LED</p>
+		</div>
+		<div class={`${cardBase} top-[13.42125rem] left-[72.8075rem] h-[16.10169rem] w-[11.18644rem]`} data-depth="0.35">
+			<Image src={cardA} alt="" class="size-full object-cover" widths={[360]} />
+		</div>
+
+		<!-- Phone -->
+		<div
+			class="absolute top-[0.00813rem] left-[34.92063rem] flex h-[36.44069rem] w-[20.1695rem] flex-col overflow-clip rounded-t-[2.88137rem] border-[0.40675rem] border-solid border-[#080d18] bg-[#080d18] p-[0.67794rem] shadow-[0_2.20337rem_4.23731rem_0_rgba(15,23,42,0.24)]"
+			data-hero-phone
+		>
+			<div class="flex items-center justify-between px-[0.59325rem] pb-[0.59325rem] text-[0.5085rem] leading-[0.76269rem] text-white">
+				<span>9:41</span>
+				<span class="relative block h-[0.59325rem] w-[6.44069rem]">
+					<span class="absolute top-[-0.67812rem] left-0 h-[1.27119rem] w-[6.44069rem] rounded-b-[0.84744rem] bg-[#01040a]"></span>
+				</span>
+				<span>•••</span>
+			</div>
+			<div class="relative h-[33.05087rem] w-full shrink-0 overflow-clip rounded-t-[2.03388rem]">
+				<Image
+					src={phoneClinician}
+					alt="Clinician sharing healthcare expertise on camera"
+					class="size-full object-cover"
+					widths={[640]}
+				/>
+				<div class="absolute top-0 left-0 h-[33.05087rem] w-[17.96613rem] bg-linear-to-b from-[38%] from-[rgba(15,23,42,0)] to-[rgba(15,23,42,0.82)]"></div>
+				<div class="absolute top-[1.51188rem] left-[1.18625rem] w-[15.59325rem]">
+					<p class="text-[0.5085rem] leading-[0.76269rem] font-extrabold tracking-[0.04576rem] whitespace-nowrap text-gold">
+						CLINICAL AUTHORITY, AMPLIFIED
+					</p>
+					<p class="w-[15.67794rem] pt-[0.42375rem] text-[1.44069rem] leading-[1.61356rem] font-bold text-white">
+						Expertise people stop to hear.
+					</p>
+				</div>
+				<div
+					class="absolute top-[25.88563rem] left-[1.18625rem] w-[15.59325rem] rounded-[0.84744rem] bg-[rgba(255,255,255,0.94)] px-[1.01694rem] pt-[0.93219rem] pb-[0.67794rem]"
+					data-hero-stat
+				>
+					<p class="text-[0.5085rem] leading-[0.76269rem] font-extrabold tracking-[0.04068rem] whitespace-nowrap text-brand">
+						QUALIFIED BOOKINGS
+					</p>
+					<p class="h-[3.45337rem] pt-[0.09312rem] text-[2.28812rem] leading-[3.43219rem] font-bold tracking-[-0.13729rem] whitespace-nowrap text-ink">
+						+184%
+					</p>
+					<img src={chart.src} alt="" class="absolute top-[1.37688rem] left-[7.81375rem] h-[2.37288rem] w-[6.94913rem]" />
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

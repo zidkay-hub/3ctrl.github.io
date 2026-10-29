@@ -1,0 +1,100 @@
+---
+import { Image } from 'astro:assets';
+import Button from '../ui/Button.astro';
+import watermark from '../../assets/images/services/watermark.png';
+import watermark2 from '../../assets/images/growth-lab/watermark-2.png';
+import handPhone from '../../assets/images/growth-lab/hand-phone.png';
+import pulse from '../../assets/images/growth-lab/pulse.svg';
+import spark from '../../assets/images/growth-lab/spark.svg';
+import arrow from '../../assets/images/growth-lab/arrow.svg';
+import chart from '../../assets/images/growth-lab/chart.svg';
+
+const marks = [
+	{ img: watermark, pos: 'left-[1.535rem] top-[1.90437rem] size-[11.70631rem]', size: 'size-[9.375rem]', rot: '-rotate-17', op: 'opacity-6', depth: 0.1 },
+	{ img: watermark2, pos: 'left-[76.60813rem] top-[2.95rem] size-[10.09337rem]', size: 'size-[7.8125rem]', rot: 'rotate-21', op: 'opacity-6', depth: -0.08 },
+	{ img: watermark, pos: 'left-[6.87812rem] top-[35.71813rem] size-[14.01625rem]', size: 'size-[11.5625rem]', rot: 'rotate-14', op: 'opacity-6', depth: 0.14 },
+	{ img: watermark2, pos: 'left-[70.2525rem] top-[37.58187rem] size-[10.74869rem]', size: 'size-[9.0625rem]', rot: '-rotate-12', op: 'opacity-6', depth: -0.12 },
+	{ img: watermark, pos: 'left-[33.5625rem] top-[10.95875rem] size-[22.981rem]', size: 'size-[16.25rem]', rot: 'rotate-45', op: 'opacity-4', depth: 0.05 },
+];
+
+const steps = [
+	{
+		n: '01', title: 'Diagnose', body: 'Find the growth constraint and commercial opportunity.', icon: pulse,
+		tone: 'border-[rgba(96,190,255,0.25)] bg-[rgba(30,112,184,0.2)]', pos: 'left-[1.875rem] top-[2.18938rem] min-h-[9.0625rem]', iconTop: 'top-[1.44875rem]', num: 'left-[16.665rem] top-[7.2275rem]', depth: 0.1,
+	},
+	{
+		n: '03', title: 'Design', body: 'Build the message, creative, and acquisition architecture.', icon: spark,
+		tone: 'border-[rgba(234,216,123,0.28)] bg-[rgba(234,216,123,0.13)]', pos: 'left-[60.3125rem] top-[3.81438rem]', iconTop: 'top-[1.88625rem]', num: 'left-[15.7275rem] top-[7.1025rem]', depth: 0.18,
+	},
+	{
+		n: '02', title: 'Deploy', body: 'Launch connected campaigns across the right channels.', icon: arrow,
+		tone: 'border-[rgba(96,190,255,0.25)] bg-[rgba(30,112,184,0.2)]', pos: 'left-[8.5625rem] top-[22.06437rem] min-h-[9.0625rem]', iconTop: 'top-[1.44875rem]', num: 'left-[15.79rem] top-[7.29rem]', depth: 0.22,
+	},
+	{
+		n: '04', title: 'Compound', body: 'Scale proven signals with continuous testing.', icon: chart,
+		tone: 'border-[rgba(234,216,123,0.28)] bg-[rgba(234,216,123,0.13)]', pos: 'left-[62rem] top-[22.06437rem]', iconTop: 'top-[1.88625rem]', num: 'left-[15.54rem] top-[5.04rem]', depth: 0.26,
+	},
+];
+---
+
+<section class="relative h-[62rem] overflow-hidden bg-ink" id="growth-lab" data-growth-lab>
+	<div class="absolute inset-y-0 left-1/2 w-[90rem] -translate-x-1/2">
+		{
+			marks.map((m) => (
+				<span class={`pointer-events-none absolute flex items-center justify-center ${m.pos}`} data-depth={m.depth} aria-hidden="true">
+					<img src={m.img.src} alt="" class={`${m.size} ${m.rot} ${m.op} object-contain`} />
+				</span>
+			))
+		}
+
+		<div
+			class="absolute top-[25.37875rem] left-[2.6875rem] h-[36.875rem] w-[84.6875rem] overflow-clip"
+			style="background:radial-gradient(ellipse 22% 38% at 50% 62%, rgba(30,112,184,0.3), transparent 100%);"
+		>
+			<div class="absolute top-[2.18688rem] left-[26.5625rem] h-[36.9375rem] w-[35.875rem] shadow-[0_2.125rem_5.625rem_0_rgba(0,0,0,0.4)]" data-depth="0.1" data-growth-phone>
+				<Image
+					src={handPhone}
+					alt="A hand holding a phone displaying a clinician-led social media reel"
+					class="size-full object-contain"
+					widths={[574, 1148]}
+				/>
+			</div>
+
+			{
+				steps.map((s) => (
+					<article
+						class={`absolute w-[21.25rem] overflow-clip rounded-[0.875rem] border-[0.08519rem] border-solid py-[1.125rem] pr-[1.25rem] pl-[3.875rem] shadow-[0_1rem_2.625rem_0_rgba(0,0,0,0.22)] backdrop-blur-[1rem] ${s.tone} ${s.pos}`}
+						data-depth={s.depth}
+						data-growth-card
+					>
+						<h3 class="pt-[0.25rem] text-[1.25rem] leading-[1.6875rem] font-medium tracking-[-0.02813rem] whitespace-nowrap text-white">{s.title}</h3>
+						<p class="pt-[0.4375rem] pb-[0.5625rem] text-[1.125rem] leading-[1.875rem] text-[rgba(255,255,255,0.72)]">{s.body}</p>
+						<span class={`absolute left-[1.0625rem] flex size-[2rem] items-center justify-center rounded-[0.5rem] border-[0.05244rem] border-solid border-[rgba(255,255,255,0.12)] bg-[rgba(255,255,255,0.1)] ${s.iconTop}`}>
+							<img src={s.icon.src} alt="" class="size-[1rem]" />
+						</span>
+						<span class={`absolute text-[3.64569rem] leading-[5.4685rem] font-extrabold tracking-[0.4375rem] whitespace-nowrap text-gold opacity-50 ${s.num}`} aria-hidden="true">
+							{s.n}
+						</span>
+					</article>
+				))
+			}
+		</div>
+
+		<div class="absolute top-[6.24937rem] left-1/2 flex -translate-x-1/2 flex-col items-center justify-center gap-[1.875rem]" data-growth-head>
+			<p class="text-[1rem] leading-[1.125rem] font-bold tracking-[0.0975rem] whitespace-nowrap text-[#f2dc60] uppercase">The Growth lab</p>
+			<h2 class="text-center text-[3.875rem] leading-[3.49125rem] font-bold tracking-[-0.21375rem] whitespace-nowrap text-white">
+				Creative instinct. <span class="text-gold">Clinical precision.</span>
+			</h2>
+			<div class="flex flex-col items-center gap-[1.25rem]">
+				<p class="w-[38.1875rem] text-center text-[1.25rem] leading-[1.875rem] text-[rgba(255,255,255,0.58)]">
+					We test, learn, and compound what works—without gambling your credibility.
+				</p>
+				<Button href="/growth-lab" variant="gold">Enter the Growth Lab</Button>
+			</div>
+		</div>
+
+		<span class="absolute top-[10.8825rem] left-[62.875rem] flex h-[7.01537rem] w-[4.9935rem] items-center justify-center" aria-hidden="true" data-depth="-0.15">
+			<span class="rotate-12 text-[4.25rem] leading-[6.375rem] whitespace-nowrap text-gold">✦</span>
+		</span>
+	</div>
+</section>

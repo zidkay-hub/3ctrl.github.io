@@ -1,0 +1,72 @@
+@import 'tailwindcss';
+@import '@fontsource/poppins/400.css';
+@import '@fontsource/poppins/500.css';
+@import '@fontsource/poppins/600.css';
+@import '@fontsource/poppins/700.css';
+@import '@fontsource/poppins/800.css';
+
+/*
+ * Design tokens from the Figma file (3CTRL-Dev).
+ * The design is authored at 1440px. Layout is written in rem, and the root
+ * font size scales with the viewport below 1440px so the whole page keeps its
+ * proportions. At 1440px and up, 1rem = 16px and content stays centered.
+ */
+@theme {
+	--font-sans: 'Poppins', system-ui, sans-serif;
+
+	--color-navy: #09162d;
+	--color-ink: #0f172a;
+	--color-brand: #1e70b8;
+	--color-gold: #ead87b;
+	--color-sun: #f3dc67;
+	--color-cream: #f8f1c9;
+	--color-mist: #eaf4fb;
+	--color-slate-text: #aeb8c8;
+}
+
+html {
+	font-size: min(calc(100vw / 90), 16px);
+	overflow-x: clip;
+}
+
+body {
+	font-family: var(--font-sans);
+	background: var(--color-navy);
+	color: #fff;
+	overflow-x: clip;
+}
+
+/*
+ * Hero intro elements start hidden only when JS is running (the `js` class is set in <head>
+ * unless the user prefers reduced motion), so the page stays readable without scripts.
+ */
+.js [data-site-header],
+.js [data-hero-line],
+.js [data-hero-sub],
+.js [data-hero-cta],
+.js [data-hero-stage] > * {
+	opacity: 0;
+}
+
+html.lenis,
+html.lenis body {
+	height: auto;
+}
+
+.lenis.lenis-smooth {
+	scroll-behavior: auto !important;
+}
+
+html.scroll-locked {
+	overflow: hidden;
+}
+
+.lenis.lenis-stopped {
+	overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+}

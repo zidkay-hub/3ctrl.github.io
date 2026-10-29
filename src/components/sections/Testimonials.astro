@@ -1,0 +1,352 @@
+---
+import { Image } from 'astro:assets';
+import jamesChen from '../../assets/images/hero/card-c.jpg';
+import mayaHaddad from '../../assets/images/hero/phone-clinician.jpg';
+import sarahWilliams from '../../assets/images/hero/card-blue.jpg';
+import michaelLaurent from '../../assets/images/hero/card-cream.jpg';
+import amaraSingh from '../../assets/images/hero/card-b.jpg';
+
+// Order matters: the initially active slide is index 2 (Dr. James Chen), matching the Figma frame.
+const slides = [
+	{ name: 'Dr. Amara Singh', role: 'Founder, The Skin Collective', photo: amaraSingh, quote: '“3 CTRL Media found the story behind our expertise and gave us a presence that finally felt as credible as the care we provide.”' },
+	{ name: 'Dr. Maya Haddad', role: 'Founder, Derma House', photo: mayaHaddad, quote: '“They understood the clinical nuance immediately—and still pushed the brand further than any traditional healthcare agency ever had.”' },
+	{ name: 'Dr. James Chen', role: 'Medical Director, Forma Health', photo: jamesChen, quote: '“For the first time, our clinical expertise was translated into content patients actually wanted to watch, save, and share.”', stat: { value: '3.6M+', label: 'patients reached in 90 days' } },
+	{ name: 'Sarah Williams', role: 'Co-founder, Aster Clinics', photo: sarahWilliams, quote: '“The team brought structure to every channel. We stopped chasing disconnected tactics and started building compounding growth.”' },
+	{ name: 'Michael Laurent', role: 'CEO, Wellpath', photo: michaelLaurent, quote: '“They moved with the pace of a creative agency while protecting the accuracy and trust our healthcare brand depends on.”' },
+];
+const start = 2;
+---
+
+<section class="relative flex flex-col items-start overflow-hidden bg-[#fbf3e9] py-[6.25rem]" id="testimonials" data-testimonials data-start={start}>
+	<div class="relative z-10 mx-auto flex w-[90rem] max-w-full flex-col items-center justify-center" data-reveal>
+		<span class="inline-flex items-center justify-center rounded-[6.1875rem] bg-gold px-[1rem] py-[0.625rem] text-[1rem] leading-[0.84375rem] font-semibold tracking-[0.0675rem] whitespace-nowrap text-ink uppercase">
+			client stories
+		</span>
+		<h2 class="text-[3.875rem] leading-[4.77rem] font-bold tracking-[-0.21796rem] whitespace-nowrap text-ink">
+			In their <span class="text-brand">own words.</span>
+		</h2>
+	</div>
+
+	<div class="relative mx-auto mt-[2.375rem] h-[35.625rem] w-[90rem] max-w-full" data-t-stage>
+		{
+			slides.map((s, i) => (
+				<article class="t-card" data-t-card data-index={i} tabindex="0" aria-label={`Testimonial from ${s.name}`}>
+					<Image src={s.photo} alt="" class="t-photo" widths={[480, 640]} />
+					<div class="t-shade"></div>
+					<p class="t-quote">{s.quote}</p>
+					<div class="t-name">
+						<p class="t-who">{s.name}</p>
+						<p class="t-role">{s.role}</p>
+					</div>
+					<span class="t-play" aria-hidden="true">▶</span>
+					{s.stat && (
+						<div class="t-stat">
+							<p class="t-stat-value">{s.stat.value}</p>
+							<p class="t-stat-label">{s.stat.label}</p>
+						</div>
+					)}
+					<span class="t-progress" aria-hidden="true"></span>
+				</article>
+			))
+		}
+
+		<button type="button" class="t-arrow left-[1.5rem]" data-t-prev aria-label="Previous testimonial">‹</button>
+		<button type="button" class="t-arrow left-[85.125rem]" data-t-next aria-label="Next testimonial">›</button>
+	</div>
+
+	<div class="mx-auto flex h-[1.875rem] w-[90rem] max-w-full items-center justify-center gap-[0.5rem] pt-[1.5rem]" data-t-dots role="tablist" aria-label="Choose testimonial">
+		{
+			slides.map((s, i) => (
+				<button type="button" class="t-dot" data-t-dot data-index={i} role="tab" aria-label={`Show ${s.name}'s testimonial`}></button>
+			))
+		}
+	</div>
+</section>
+
+<style>
+	/* Slot geometry comes straight from the Figma frame (1440px stage), in rem. */
+	.t-card {
+		--w: 24.375rem;
+		--h: 33.75rem;
+		--l: 32.8125rem;
+		--t: 1.875rem;
+		--op: 1;
+		--r: 1.375rem;
+		--img: 1.14;
+		--q-top: 23.4456rem;
+		--q-w: 18.125rem;
+		--q-size: 1.3125rem;
+		--q-lh: 1.640625rem;
+		--n-top: 30rem;
+		--n-w: 21.125rem;
+		--n-size: 0.75rem;
+		--n-lh: 1.125rem;
+		--r-size: 0.5rem;
+		--p-size: 3.625rem;
+		--p-left: 10.375rem;
+		--p-top: 12.3625rem;
+
+		position: absolute;
+		left: var(--l);
+		top: var(--t);
+		width: var(--w);
+		height: var(--h);
+		opacity: var(--op);
+		overflow: clip;
+		border-radius: var(--r) var(--r) 0 0;
+		background: #090918;
+		color: #fff;
+		cursor: pointer;
+		transition:
+			left 0.7s cubic-bezier(0.65, 0, 0.35, 1),
+			top 0.7s cubic-bezier(0.65, 0, 0.35, 1),
+			width 0.7s cubic-bezier(0.65, 0, 0.35, 1),
+			height 0.7s cubic-bezier(0.65, 0, 0.35, 1),
+			opacity 0.7s ease;
+		outline: none;
+	}
+
+	.t-card[data-pos='-1'],
+	.t-card[data-pos='1'] {
+		--w: 18.125rem;
+		--h: 26.875rem;
+		--t: 8.75rem;
+		--op: 0.88;
+		--img: 1.04;
+		--q-top: 16.5706rem;
+		--q-w: 14.875rem;
+		--n-top: 23.125rem;
+		--n-w: 14.875rem;
+		--p-size: 2.625rem;
+		--p-left: 7.75rem;
+		--p-top: 9.4375rem;
+	}
+	.t-card[data-pos='-1'] {
+		--l: 13.4375rem;
+	}
+	.t-card[data-pos='1'] {
+		--l: 58.4375rem;
+	}
+
+	.t-card[data-pos='-2'],
+	.t-card[data-pos='2'] {
+		--w: 15.95rem;
+		--h: 23.65rem;
+		--t: 10.3625rem;
+		--op: 0.55;
+		--r: 1.21rem;
+		--img: 1.04;
+		--q-top: 14.5819rem;
+		--q-w: 13.09rem;
+		--q-size: 1.155rem;
+		--q-lh: 1.44375rem;
+		--n-top: 20.35rem;
+		--n-w: 13.09rem;
+		--n-size: 0.66rem;
+		--n-lh: 0.99rem;
+		--r-size: 0.44rem;
+		--p-size: 2.31rem;
+		--p-left: 6.82rem;
+		--p-top: 8.305rem;
+	}
+	.t-card[data-pos='-2'] {
+		--l: -4.375rem;
+	}
+	.t-card[data-pos='2'] {
+		--l: 78.425rem;
+	}
+
+	.t-card[data-pos='hidden'] {
+		--op: 0;
+		pointer-events: none;
+	}
+
+	.t-photo {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		max-width: none;
+		object-fit: cover;
+		transform: scale(var(--img));
+		transform-origin: 50% 40%;
+		transition: transform 0.7s cubic-bezier(0.65, 0, 0.35, 1);
+	}
+
+	.t-shade {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(to bottom, rgba(4, 4, 19, 0.12) 25%, rgba(4, 4, 19, 0.2) 48%, rgba(4, 4, 19, 0.95));
+	}
+
+	.t-quote {
+		position: absolute;
+		left: 1.625rem;
+		top: var(--q-top);
+		width: var(--q-w);
+		height: 4.9375rem;
+		overflow: clip;
+		font-family: Georgia, 'Times New Roman', serif;
+		font-style: italic;
+		font-size: var(--q-size);
+		line-height: var(--q-lh);
+	}
+
+	.t-name {
+		position: absolute;
+		left: 1.625rem;
+		top: var(--n-top);
+		width: var(--n-w);
+	}
+
+	.t-who {
+		font-size: var(--n-size);
+		line-height: var(--n-lh);
+		font-weight: 700;
+		white-space: nowrap;
+	}
+
+	.t-role {
+		padding-top: 0.125rem;
+		font-size: var(--r-size);
+		line-height: 0.75rem;
+		white-space: nowrap;
+		color: rgba(255, 255, 255, 0.5);
+	}
+
+	.t-play {
+		position: absolute;
+		left: var(--p-left);
+		top: var(--p-top);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: var(--p-size);
+		height: var(--p-size);
+		border-radius: 50%;
+		border: 0.05rem solid rgba(255, 255, 255, 0.25);
+		background: rgba(255, 255, 255, 0.15);
+		backdrop-filter: blur(8px);
+		font-size: 0.625rem;
+	}
+
+	.t-card[data-pos='0'] .t-play {
+		background: rgba(12, 12, 42, 0.65);
+		border-color: rgba(255, 255, 255, 0.2);
+		font-size: 0.875rem;
+	}
+
+	.t-stat {
+		position: absolute;
+		top: 4.734rem;
+		right: 1.5rem;
+		text-align: right;
+		white-space: nowrap;
+		opacity: 0;
+		transition: opacity 0.5s ease;
+	}
+	.t-card[data-pos='0'] .t-stat {
+		opacity: 1;
+	}
+
+	.t-stat-value {
+		font-size: 1.875rem;
+		line-height: 2.8125rem;
+		font-weight: 700;
+		letter-spacing: -0.1125rem;
+		color: var(--color-gold);
+	}
+
+	.t-stat-label {
+		font-size: 0.4375rem;
+		line-height: 0.65625rem;
+		color: rgba(255, 255, 255, 0.62);
+	}
+
+	.t-progress {
+		position: absolute;
+		left: 1.5rem;
+		bottom: 0.25rem;
+		width: calc(100% - 3rem);
+		height: 0.125rem;
+		background: rgba(255, 255, 255, 0.18);
+		opacity: 0;
+	}
+	.t-card[data-pos='0'] .t-progress {
+		opacity: 1;
+	}
+
+	.t-arrow {
+		position: absolute;
+		top: 18.525rem;
+		z-index: 5;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 3.375rem;
+		height: 3.375rem;
+		border-radius: 50%;
+		border: 0.05rem solid rgba(255, 255, 255, 0.2);
+		background: rgba(12, 12, 42, 0.65);
+		backdrop-filter: blur(10px);
+		font-family: Georgia, serif;
+		font-size: 1.875rem;
+		line-height: 2.8125rem;
+		color: #fff;
+		transition: transform 0.2s ease, background 0.2s ease;
+	}
+	.t-arrow:hover {
+		background: rgba(30, 112, 184, 0.9);
+		transform: scale(1.06);
+	}
+
+	.t-dot {
+		width: 0.375rem;
+		height: 0.375rem;
+		border-radius: 0.3125rem;
+		background: #fff;
+		transition:
+			width 0.4s ease,
+			background 0.4s ease;
+	}
+	.t-dot[aria-selected='true'] {
+		width: 2.125rem;
+		background: var(--color-brand);
+	}
+</style>
+
+<script>
+	const root = document.querySelector<HTMLElement>('[data-testimonials]');
+
+	if (root) {
+		const cards = [...root.querySelectorAll<HTMLElement>('[data-t-card]')];
+		const dots = [...root.querySelectorAll<HTMLElement>('[data-t-dot]')];
+		const n = cards.length;
+		let active = Number(root.dataset.start ?? 0);
+
+		const render = () => {
+			cards.forEach((card, i) => {
+				const pos = ((i - active + 2 + n * 2) % n) - 2;
+				card.dataset.pos = String(pos);
+				card.setAttribute('aria-hidden', pos === 0 ? 'false' : 'true');
+			});
+			dots.forEach((dot, i) => dot.setAttribute('aria-selected', String(i === active)));
+		};
+
+		const go = (index: number) => {
+			active = (index + n) % n;
+			render();
+		};
+
+		root.querySelector('[data-t-prev]')?.addEventListener('click', () => go(active - 1));
+		root.querySelector('[data-t-next]')?.addEventListener('click', () => go(active + 1));
+		cards.forEach((card, i) => card.addEventListener('click', () => go(i)));
+		dots.forEach((dot, i) => dot.addEventListener('click', () => go(i)));
+		root.addEventListener('keydown', (e) => {
+			if (e.key === 'ArrowLeft') go(active - 1);
+			if (e.key === 'ArrowRight') go(active + 1);
+		});
+
+		render();
+	}
+</script>

@@ -1,0 +1,69 @@
+---
+import Button from '../ui/Button.astro';
+import Glow from '../ui/Glow.astro';
+import GlobePin from '../ui/GlobePin.astro';
+import worldMap from '../../assets/images/reach/world-map.png';
+import toronto from '../../assets/images/hero/card-blue.jpg';
+import newYork from '../../assets/images/hero/phone-clinician.jpg';
+import london from '../../assets/images/hero/card-c.jpg';
+import dubai from '../../assets/images/hero/card-cream.jpg';
+import singapore from '../../assets/images/hero/card-b.jpg';
+import sydney from '../../assets/images/hero/card-a.jpg';
+
+const pins = [
+	{ city: 'Toronto', note: 'Clinic growth', photo: toronto, k: 1, left: 0, top: 71, labelWidth: 109.182 },
+	{ city: 'New York', note: 'Founder brand', photo: newYork, k: 1.3292, left: 92, top: 235, labelWidth: 100 },
+	{ city: 'London', note: 'Patient acquisition', photo: london, k: 1.119, left: 166, top: -0.85, labelWidth: 100 },
+	{ city: 'Dubai', note: 'Healthtech launch', photo: dubai, k: 1.7064, left: 311.74, top: 224.76 },
+	{ city: 'Singapore', note: 'Content engine', photo: singapore, k: 0.8152, left: 237, top: 100.15, labelWidth: 89.003 },
+	{ city: 'Sydney', note: 'Growth strategy', photo: sydney, k: 1.2955, left: 395.75, top: 81.94, labelWidth: 100 },
+];
+
+const stats = [
+	{ value: '12+', label: 'Countries reached', size: 'text-[1.125rem]' },
+	{ value: '4', label: 'Continents active', size: 'text-[1rem]' },
+	{ value: '24/7', label: 'Campaign visibility', size: 'text-[1rem]' },
+];
+---
+
+<section class="relative flex flex-col items-center bg-white p-[6.25rem]" id="global-reach" data-reach>
+	<Glow />
+
+	<div class="relative flex w-full items-center justify-between">
+		<div class="relative h-[28.5rem] w-[41.5rem] shrink-0" data-reach-map>
+			<div class="pointer-events-none absolute top-[-1.4325rem] left-[-2.46188rem] h-[29.96531rem] w-[44.43481rem] overflow-hidden opacity-50">
+				<img
+					src={worldMap.src}
+					alt=""
+					class="absolute top-[-35.27%] left-[-7.39%] h-[166.78%] w-[112.47%] max-w-none"
+				/>
+			</div>
+			{pins.map((p) => <GlobePin {...p} />)}
+		</div>
+
+		<div class="flex w-[36rem] shrink-0 flex-col items-start" data-reach-copy>
+			<span class="inline-flex items-center justify-center rounded-[6.1875rem] bg-gold px-[1rem] py-[0.625rem] text-[1rem] leading-[0.84375rem] font-semibold tracking-[0.0675rem] whitespace-nowrap text-ink uppercase">
+				Global client network
+			</span>
+			<h2 class="w-[35.3125rem] pt-[1.25rem] text-[3.875rem] leading-[4.12131rem] font-bold tracking-[-0.21796rem] text-ink">
+				Healthcare growth<br />without borders.
+			</h2>
+			<p class="w-[36rem] pt-[1.25rem] text-[1.25rem] text-[#64748b]">
+				From private clinics in London to healthtech founders in Dubai, 3 CTRL Media builds locally relevant growth systems for ambitious healthcare teams around the world.
+			</p>
+			<div class="my-[1.75rem] flex w-full items-center justify-between border-y-[0.08519rem] border-solid border-[rgba(15,23,42,0.11)] py-[0.875rem]">
+				{
+					stats.map((s) => (
+						<div class="flex w-[9.47394rem] flex-col items-center justify-center whitespace-nowrap">
+							<span class="text-[2.625rem] leading-[3.125rem] font-bold tracking-[-0.07813rem] text-brand" data-count>
+								{s.value}
+							</span>
+							<span class={`text-[#64748b] ${s.size}`}>{s.label}</span>
+						</div>
+					))
+				}
+			</div>
+			<Button href="#book">Grow With Us Globally</Button>
+		</div>
+	</div>
+</section>

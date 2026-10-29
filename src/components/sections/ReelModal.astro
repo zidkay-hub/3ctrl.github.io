@@ -1,0 +1,137 @@
+---
+import { reel } from '../../data/reel';
+---
+
+<dialog class="reel-dialog" data-reel-dialog aria-label={reel.title}>
+	<div class="reel-frame">
+		<button type="button" class="reel-close" data-reel-close aria-label="Close reel">
+			<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+				<path d="M6 6l12 12M18 6L6 18"></path>
+			</svg>
+		</button>
+
+		{
+			reel.embedUrl ? (
+				<iframe
+					class="reel-media"
+					title={reel.title}
+					data-src={reel.embedUrl}
+					allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+					allowfullscreen
+				/>
+			) : (
+				<video
+					class="reel-media"
+					data-reel-video
+					data-src={reel.videoSrc}
+					poster={reel.poster}
+					controls
+					playsinline
+					preload="none"
+				/>
+			)
+		}
+
+		<div class="reel-fallback" data-reel-fallback hidden>
+			<p class="reel-fallback-title">Our reel is on its way</p>
+			<p class="reel-fallback-body">The demo reel isn't published yet. Check back soon, or book a call and we'll walk you through our work.</p>
+		</div>
+	</div>
+</dialog>
+
+<style>
+	.reel-dialog {
+		margin: auto;
+		padding: 0;
+		border: 0;
+		background: transparent;
+		width: min(92vw, 70rem);
+		max-width: none;
+		max-height: 92vh;
+		overflow: visible;
+		color: #fff;
+	}
+
+	.reel-dialog::backdrop {
+		background: rgba(5, 10, 24, 0.86);
+		backdrop-filter: blur(8px);
+	}
+
+	.reel-frame {
+		position: relative;
+		aspect-ratio: 16 / 9;
+		overflow: hidden;
+		border-radius: 1.25rem;
+		background: #060b18;
+		box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.55);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+	}
+
+	.reel-media {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		border: 0;
+		background: #000;
+		object-fit: contain;
+	}
+
+	.reel-close {
+		position: absolute;
+		top: 0.9rem;
+		right: 0.9rem;
+		z-index: 3;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 2.5rem;
+		height: 2.5rem;
+		border-radius: 50%;
+		border: 1px solid rgba(255, 255, 255, 0.25);
+		background: rgba(12, 12, 42, 0.7);
+		backdrop-filter: blur(8px);
+		color: #fff;
+		cursor: pointer;
+		transition:
+			background 0.2s ease,
+			transform 0.2s ease;
+	}
+
+	.reel-close:hover {
+		background: var(--color-brand);
+		transform: scale(1.06);
+	}
+
+	.reel-fallback {
+		position: absolute;
+		inset: 0;
+		z-index: 2;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 0.75rem;
+		padding: 2rem;
+		text-align: center;
+		background: radial-gradient(60% 60% at 50% 40%, rgba(30, 112, 184, 0.35), #060b18);
+	}
+
+	.reel-fallback[hidden] {
+		display: none;
+	}
+
+	.reel-fallback-title {
+		font-size: 2rem;
+		font-weight: 700;
+		letter-spacing: -0.04em;
+		color: var(--color-gold);
+	}
+
+	.reel-fallback-body {
+		max-width: 30rem;
+		font-size: 1.125rem;
+		line-height: 1.6;
+		color: rgba(255, 255, 255, 0.7);
+	}
+</style>

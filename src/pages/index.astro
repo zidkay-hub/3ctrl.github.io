@@ -1,0 +1,44 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/sections/Hero.astro';
+import Marquee from '../components/sections/Marquee.astro';
+import ContentEngine from '../components/sections/ContentEngine.astro';
+import TranslationGap from '../components/sections/TranslationGap.astro';
+import Services from '../components/sections/Services.astro';
+import GrowthLab from '../components/sections/GrowthLab.astro';
+import GlobalReach from '../components/sections/GlobalReach.astro';
+import ClientQuote from '../components/sections/ClientQuote.astro';
+import Testimonials from '../components/sections/Testimonials.astro';
+import Faq from '../components/sections/Faq.astro';
+import ContactCta from '../components/sections/ContactCta.astro';
+import Footer from '../components/sections/Footer.astro';
+import ReelModal from '../components/sections/ReelModal.astro';
+---
+
+<Layout
+	title="3CTRL | Clinician-led growth for healthcare brands"
+	description="Clinician-led strategy and standout creative for healthcare brands ready to grow."
+>
+	<main>
+		<Hero />
+		<Marquee />
+		<ContentEngine />
+		<TranslationGap />
+		<Services />
+		<GrowthLab />
+		<GlobalReach />
+		<ClientQuote />
+		<Testimonials />
+		<Faq />
+		<ContactCta />
+	</main>
+	<Footer />
+	<ReelModal />
+</Layout>
+
+<script>
+	import { initHome } from '../scripts/animations/home';
+	import { initReel } from '../scripts/reel';
+	initHome();
+	initReel();
+</script>

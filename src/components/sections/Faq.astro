@@ -1,0 +1,133 @@
+---
+// Answer 01 is from the Figma file. Answers 02-05 are placeholders: the design only shows the questions.
+const items = [
+	{
+		q: 'Who do you work with?',
+		a: 'We partner with private clinics, healthcare groups, healthtech teams, medical founders, and wellness brands ready to build meaningful demand.',
+	},
+	{
+		q: 'Do you only work with healthcare organizations?',
+		a: 'Our focus is healthcare and wellness. PLACEHOLDER: replace with the final answer.',
+	},
+	{
+		q: 'What does a typical engagement include?',
+		a: 'PLACEHOLDER: replace with the final answer.',
+	},
+	{
+		q: 'How quickly can we get started?',
+		a: 'PLACEHOLDER: replace with the final answer.',
+	},
+	{
+		q: 'Can you work with our internal team?',
+		a: 'PLACEHOLDER: replace with the final answer.',
+	},
+];
+---
+
+<section class="bg-white p-[6.25rem]" id="faq" data-faq>
+	<div class="mx-auto flex w-[77.5rem] items-start justify-between">
+		<div class="flex h-[25.7375rem] w-[22.20313rem] max-w-[23.75rem] shrink-0 flex-col items-start" data-reveal>
+			<span class="inline-flex items-center justify-center rounded-[6.1875rem] bg-gold px-[1rem] py-[0.625rem] text-[1rem] leading-[0.84375rem] font-semibold tracking-[0.0675rem] whitespace-nowrap text-ink uppercase">
+				the useful answers
+			</span>
+			<h2 class="w-[22.25rem] pt-[1.0625rem] text-[3.875rem] leading-[4.375rem] font-bold tracking-[-0.165rem] text-ink">
+				Questions before we begin?
+			</h2>
+			<p class="w-[22.25rem] pt-[1.0625rem] text-[1.5rem] text-[#64748b]">
+				A few clear answers about how we work, who we work with, and what happens next.
+			</p>
+		</div>
+
+		<div class="flex w-[44.5625rem] shrink-0 flex-col gap-[0.625rem] border-t-[0.05rem] border-solid border-[rgba(15,23,42,0.12)]">
+			{
+				items.map((item, i) => (
+					<div class="faq-item border-b-[0.05rem] border-solid border-[rgba(15,23,42,0.12)]" data-faq-item data-open={i === 0 ? 'true' : 'false'}>
+						<h3>
+							<button
+								type="button"
+								class="grid w-full cursor-pointer grid-cols-[1.875rem_1fr_2.70313rem] h-[4.25rem] items-center gap-[1.0625rem] text-left"
+								aria-expanded={i === 0 ? 'true' : 'false'}
+								aria-controls={`faq-panel-${i}`}
+								id={`faq-trigger-${i}`}
+							>
+								<span class="text-[1.25rem] leading-[1.03125rem] font-extrabold tracking-[0.055rem] text-brand">{String(i + 1).padStart(2, '0')}</span>
+								<span class="text-[1.5rem] leading-[1.5rem] font-medium text-ink">{item.q}</span>
+								<span class="faq-icon flex size-[2.70313rem] items-center justify-center rounded-full border-[0.09012rem] border-solid border-[rgba(15,23,42,0.2)] text-[1.68944rem] leading-none text-ink">
+									<span class="faq-plus block">+</span>
+								</span>
+							</button>
+						</h3>
+						<div class="faq-panel" id={`faq-panel-${i}`} role="region" aria-labelledby={`faq-trigger-${i}`}>
+							<div class="overflow-hidden">
+								<p class="relative -top-[0.33813rem] w-[41.625rem] pb-[1rem] pl-[2.92188rem] text-[1.25rem] text-[#64748b]">{item.a}</p>
+							</div>
+						</div>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.faq-panel {
+		display: grid;
+		grid-template-rows: 0fr;
+		transition: grid-template-rows 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+	}
+
+	.faq-item[data-open='true'] .faq-panel {
+		grid-template-rows: 1fr;
+	}
+
+	.faq-icon {
+		transition:
+			background 0.3s ease,
+			border-color 0.3s ease,
+			color 0.3s ease;
+	}
+
+	.faq-plus {
+		transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+	}
+
+	.faq-item[data-open='true'] .faq-icon {
+		background: var(--color-brand);
+		border-color: var(--color-brand);
+		color: #fff;
+	}
+
+	.faq-item[data-open='true'] .faq-plus {
+		transform: rotate(45deg);
+	}
+
+	button:hover .faq-icon {
+		border-color: var(--color-brand);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.faq-panel,
+		.faq-plus {
+			transition: none;
+		}
+	}
+</style>
+
+<script>
+	const root = document.querySelector<HTMLElement>('[data-faq]');
+
+	root?.querySelectorAll<HTMLElement>('[data-faq-item]').forEach((item) => {
+		const button = item.querySelector('button');
+		button?.addEventListener('click', () => {
+			const open = item.dataset.open === 'true';
+			root.querySelectorAll<HTMLElement>('[data-faq-item]').forEach((other) => {
+				other.dataset.open = 'false';
+				other.querySelector('button')?.setAttribute('aria-expanded', 'false');
+			});
+			if (!open) {
+				item.dataset.open = 'true';
+				button.setAttribute('aria-expanded', 'true');
+			}
+		});
+	});
+</script>

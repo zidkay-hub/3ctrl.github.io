@@ -1,0 +1,113 @@
+---
+import { Image } from 'astro:assets';
+import Tag from '../ui/Tag.astro';
+import Button from '../ui/Button.astro';
+import Glow from '../ui/Glow.astro';
+import presenting from '../../assets/images/engine/clinician-presenting.jpg';
+import interview from '../../assets/images/hero/phone-clinician.jpg';
+import reels from '../../assets/images/hero/card-blue.jpg';
+
+const steps = [
+	{ n: '01', title: 'Clinician-led scripting', body: 'Pull the sharpest insight from your clinical expertise.', gap: 'h-[4.25rem] gap-[0.75rem] p-[1.125rem]' },
+	{ n: '02', title: 'Platform-native creative', body: 'Build platform-native ideas with a point of view.', gap: 'h-[4.27788rem] gap-[0.75rem] px-[1.0625rem] py-[0.75rem]' },
+	{ n: '03', title: 'Performance-led iteration', body: 'Learn from performance and smarter.', gap: 'h-[4.27788rem] gap-[1.5rem] px-[1.0625rem] py-[0.75rem]' },
+];
+
+const panels = [
+	{ n: '01', title: 'Clinical Campaigns', tag: 'Assets', img: presenting, big: true },
+	{ n: '02', title: 'Interviews', tag: 'Authority', img: interview },
+	{ n: '03', title: 'Reels', tag: 'Attention', img: reels },
+];
+---
+
+<section class="relative flex items-center justify-between bg-[#f8faf9] p-[6.25rem]" id="content-engine" data-engine>
+	<!-- Figma places this wash at left 205 / top 700 of the 1440 stage, flipped, so it peaks just below the section edge. -->
+	<div class="pointer-events-none absolute inset-y-0 left-1/2 w-[90rem] -translate-x-1/2">
+		<Glow flip class="top-[43.75rem] left-[12.8125rem]" />
+	</div>
+
+	<div class="relative flex w-[32.42394rem] shrink-0 flex-col items-start" data-engine-copy>
+		<Tag>The Content Engine</Tag>
+		<h2 class="w-[35.5rem] pt-[1.1875rem] text-[3.875rem] leading-[4.06637rem] font-bold tracking-[-0.213rem] text-ink">
+			One strategy.<br />
+			<span class="text-brand">An endless stream of attention.</span>
+		</h2>
+		<p class="w-[28.75rem] pt-[1.4375rem] text-[1.25rem] text-ink opacity-75">
+			We turn clinical expertise into a connected library of reels, interviews, campaigns, and conversion assets built to move as fast as your audience does.
+		</p>
+		<ol class="flex w-[30.5855rem] flex-col gap-[1rem] py-[2.5rem]">
+			{
+				steps.map((s) => (
+					<li class={`flex items-center rounded-[1rem] bg-[rgba(234,216,123,0.1)] ${s.gap}`} data-reveal>
+						<span class="text-[1rem] leading-[1.03681rem] font-black text-brand">{s.n}</span>
+						<div>
+							<p class="text-[1rem] leading-[1.61288rem] font-semibold text-ink">{s.title}</p>
+							<p class="text-[1rem] text-[#64748b]">{s.body}</p>
+						</div>
+					</li>
+				))
+			}
+		</ol>
+		<Button href="#book">Build My Content</Button>
+	</div>
+
+	<div class="relative flex h-[45.1875rem] w-[42.375rem] shrink-0 items-center justify-center gap-[1.05638rem]" data-engine-panels>
+		{
+			panels.map((p) => (
+				<article
+					class:list={[
+						'relative flex h-full flex-col overflow-clip rounded-[1.58456rem]',
+						'panel min-w-0 cursor-pointer',
+						p.big && 'is-default',
+					]}
+					data-panel
+				>
+					<Image src={p.img} alt="" class="absolute inset-0 size-full object-cover" widths={[480, 800]} />
+					<div class="absolute inset-0 bg-linear-to-b from-[45%] from-[rgba(15,23,42,0)] to-[rgba(15,23,42,0.82)]" />
+					<div class="absolute bottom-[3.0625rem] left-[1.49625rem] flex flex-col">
+						<span class="pb-[0.5625rem] text-[0.61625rem] leading-[0.92431rem] font-extrabold tracking-[0.07394rem] text-gold">
+							{p.n}
+						</span>
+						<span
+							class:list={[
+								'font-bold text-white',
+								p.big ? 'text-[1.4085rem] leading-[1.47894rem]' : 'text-[1.05638rem] leading-[1.10919rem]',
+							]}
+						>
+							{p.title}
+						</span>
+						<span class="pt-[0.61625rem] text-[0.61625rem] leading-[0.92431rem] text-[rgba(255,255,255,0.65)]">{p.tag}</span>
+					</div>
+				</article>
+			))
+		}
+	</div>
+</section>
+
+<style>
+	/* Panels share the row by flex-grow: the first is wide by default, the hovered one takes over. */
+	.panel {
+		flex: 1 1 0;
+		transition: flex-grow 0.7s cubic-bezier(0.65, 0, 0.35, 1);
+	}
+	.panel.is-default {
+		flex-grow: 3.89;
+	}
+	[data-engine-panels]:hover .panel.is-default {
+		flex-grow: 1;
+	}
+	[data-engine-panels] .panel:hover {
+		flex-grow: 3.89;
+	}
+	[data-engine-panels] .panel.is-default:hover {
+		flex-grow: 3.89;
+	}
+	.panel span {
+		white-space: nowrap;
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.panel {
+			transition: none;
+		}
+	}
+</style>

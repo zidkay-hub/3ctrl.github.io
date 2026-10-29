@@ -1,0 +1,50 @@
+---
+const items = ['CLINICS', 'HEALTHTECH', 'MEDICAL FOUNDERS', 'PRIVATE PRACTICES', 'WELLNESS BRANDS'];
+// The band is wider than the viewport, so repeat the list enough times to always fill it.
+// The animation shifts by exactly one copy (100% / COPIES) so the loop is seamless.
+const COPIES = 6;
+---
+
+<section class="relative z-20 h-[5.375rem]" aria-label="Who we work with">
+	<!-- Both bands are 120vw wide and centered, so the tilted ends always run off-screen on any display. -->
+	<div class="absolute top-[1.75rem] left-1/2 h-[3.625rem] w-[120vw] max-w-none -translate-x-1/2 rotate-[1.27deg] bg-gold"></div>
+	<div
+		class="absolute top-[1.75rem] left-1/2 h-[3.625rem] w-[120vw] max-w-none -translate-x-1/2 rotate-[-2.03deg] overflow-clip bg-[#070b14]"
+	>
+		<div class="marquee-track flex h-full w-max items-center">
+			{
+				Array.from({ length: COPIES }, (_, copy) => (
+					<ul class="flex shrink-0 items-center" aria-hidden={copy > 0 ? 'true' : undefined}>
+						{items.map((item) => (
+							<li class="flex items-center pl-[2rem]">
+								<span class="text-[0.625rem] leading-[0.9375rem] font-bold tracking-[0.0875rem] whitespace-nowrap text-white">
+									{item}
+								</span>
+								<span class="pl-[2rem] text-[0.75rem] leading-[1.125rem] tracking-[0.0875rem] text-gold">✦</span>
+								<span class="w-[0.6875rem]"></span>
+							</li>
+						))}
+					</ul>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.marquee-track {
+		animation: marquee 30s linear infinite;
+	}
+
+	@keyframes marquee {
+		to {
+			transform: translateX(calc(-100% / 6));
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.marquee-track {
+			animation: none;
+		}
+	}
+</style>

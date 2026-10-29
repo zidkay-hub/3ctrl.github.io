@@ -1,0 +1,15 @@
+---
+import { Image } from 'astro:assets';
+import logoMark from '../../assets/images/hero/logo-mark.png';
+import logoMask from '../../assets/images/hero/logo-mask.png';
+---
+
+<a href="/" aria-label="3CTRL home" class="relative block h-[1.98825rem] w-[5.9375rem] shrink-0">
+	<span class="absolute top-0 left-0 size-[1.98825rem] overflow-hidden">
+		<Image src={logoMark} alt="" width={380} class="absolute top-0 left-0 h-full w-[298.38%] max-w-none" />
+	</span>
+	<span
+		class="absolute top-[-0.29938rem] left-[1.98812rem] h-[2.424rem] w-[4.24887rem] bg-sun mask-no-repeat"
+		style={`mask-image:url("${logoMask.src}");mask-size:3.9493rem 1.98825rem;mask-position:0 0.29956rem;-webkit-mask-image:url("${logoMask.src}");-webkit-mask-size:3.9493rem 1.98825rem;-webkit-mask-position:0 0.29956rem;`}
+	></span>
+</a>

@@ -1,0 +1,113 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+	city: string;
+	note: string;
+	photo: ImageMetadata;
+	/** Scale relative to the smallest pin (Toronto = 1). */
+	k: number;
+	left: number;
+	top: number;
+	labelWidth?: number;
+}
+
+const { city, note, photo, k, left, top, labelWidth } = Astro.props;
+---
+
+<div
+	class="pin absolute"
+	style={`--k:${k};left:${left / 16}rem;top:${top / 16}rem;${labelWidth ? `--label-w:${labelWidth / 16}rem;` : ''}`}
+	data-pin
+>
+	<div class="avatar">
+		<div class="avatar-inner">
+			<Image src={photo} alt="" width={160} class="avatar-img" />
+		</div>
+	</div>
+	<span class="dot"></span>
+	<div class="label">
+		<p class="city">{city}</p>
+		<p class="note">{note}</p>
+	</div>
+</div>
+
+<style>
+	/* All sizes are rem constants from the Figma design at k = 1, multiplied by the pin's scale. */
+	.pin {
+		--s: calc(var(--k) * 3.76938rem);
+		width: var(--s);
+		height: var(--s);
+	}
+
+	.avatar {
+		position: absolute;
+		inset: calc(var(--k) * -0.78rem);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.avatar-inner {
+		width: var(--s);
+		height: var(--s);
+		transform: rotate(-45deg);
+		overflow: hidden;
+		background: #fff;
+		border: calc(var(--k) * 0.26rem) solid #fff;
+		border-radius: calc(var(--k) * 1.88rem) calc(var(--k) * 1.88rem) calc(var(--k) * 1.88rem) calc(var(--k) * 0.52rem);
+		box-shadow: 0 calc(var(--k) * 0.78rem) calc(var(--k) * 1.69rem) rgba(15, 23, 42, 0.16);
+		position: relative;
+	}
+
+	.avatar-img {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: calc(var(--k) * 3.9rem);
+		height: calc(var(--k) * 3.9rem);
+		max-width: none;
+		transform: translate(-50%, -50%) rotate(45deg);
+		object-fit: cover;
+	}
+
+	.dot {
+		position: absolute;
+		left: calc(var(--k) * 1.43rem);
+		top: calc(var(--k) * 3.57rem);
+		width: calc(var(--k) * 0.91rem);
+		height: calc(var(--k) * 0.91rem);
+		border-radius: 50%;
+		background: #ead87b;
+		border: calc(var(--k) * 0.156rem) solid #fff;
+	}
+
+	.label {
+		position: absolute;
+		left: calc(var(--k) * 2.99rem);
+		top: calc(var(--k) * 0.247rem);
+		width: var(--label-w, auto);
+		min-width: calc(var(--k) * 6.82rem);
+		padding: calc(var(--k) * 0.455rem) calc(var(--k) * 0.585rem);
+		background: rgba(255, 255, 255, 0.94);
+		border: calc(var(--k) * 0.052rem) solid rgba(15, 23, 42, 0.11);
+		border-radius: calc(var(--k) * 0.585rem);
+		box-shadow: 0 calc(var(--k) * 0.65rem) calc(var(--k) * 1.56rem) rgba(15, 23, 42, 0.1);
+	}
+
+	.city {
+		font-size: calc(var(--k) * 0.52rem);
+		line-height: calc(var(--k) * 0.78rem);
+		font-weight: 700;
+		color: #0f172a;
+		white-space: nowrap;
+	}
+
+	.note {
+		font-size: calc(var(--k) * 0.39rem);
+		line-height: calc(var(--k) * 0.585rem);
+		color: #64748b;
+		white-space: nowrap;
+	}
+</style>

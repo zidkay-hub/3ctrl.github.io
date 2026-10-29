@@ -1,0 +1,37 @@
+---
+import Logo from '../ui/Logo.astro';
+
+const links = [
+	{ label: 'Services', href: '/services' },
+	{ label: 'Growth Lab', href: '/growth-lab' },
+	{ label: 'Global Reach', href: '#global-reach' },
+	{ label: 'Our Workflow', href: '/our-workflow' },
+	{ label: 'Testimonials', href: '#testimonials' },
+	{ label: 'Why Us', href: '/why-us' },
+	{ label: 'About', href: '/about' },
+];
+---
+
+<header class="absolute top-0 left-1/2 z-30 w-[90rem] max-w-full -translate-x-1/2" data-site-header>
+	<div class="mx-auto flex w-[83.125rem] items-center justify-between pt-[1.875rem]">
+		<Logo />
+		<nav aria-label="Main navigation" class="flex gap-[1.62112rem]">
+			{
+				links.map((l) => (
+					<a
+						href={l.href}
+						class="text-[1.125rem] leading-[1.03125rem] font-medium whitespace-nowrap text-white transition-colors hover:text-gold"
+					>
+						{l.label}
+					</a>
+				))
+			}
+		</nav>
+		<a
+			href="#book"
+			class="flex h-[3.0435rem] items-center justify-center rounded-[0.375rem] bg-brand px-[1.125rem] py-[0.875rem] text-[1.25rem] leading-[1.125rem] font-semibold whitespace-nowrap text-white drop-shadow-[0_0.6875rem_0.78125rem_rgba(30,112,184,0.2)] transition hover:brightness-110"
+		>
+			Book a Growth Call
+		</a>
+	</div>
+</header>

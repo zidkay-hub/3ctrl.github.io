@@ -1,0 +1,92 @@
+---
+import Logo from '../ui/Logo.astro';
+import instagram from '../../assets/images/footer/instagram.svg';
+import whatsapp from '../../assets/images/footer/whatsapp.svg';
+import arrowUpRight from '../../assets/images/footer/arrow-up-right.svg';
+import arrowSmall from '../../assets/images/footer/arrow-up-right-small.svg';
+
+const explore = [
+	{ label: 'Why Us', href: '/why-us' },
+	{ label: 'Workflow', href: '/our-workflow' },
+	{ label: 'Growth Lab', href: '/growth-lab' },
+];
+const more = [
+	{ label: 'Services', href: '/services' },
+	{ label: 'Success Stories', href: '/success-stories' },
+	{ label: 'About Us', href: '/about' },
+];
+
+const contacts = [
+	{ kind: 'INSTAGRAM', value: '@3ctrlmedia', href: 'https://instagram.com/3ctrlmedia', icon: 'insta' },
+	{ kind: 'EMAIL', value: 'hello@3ctrlmedia.com', href: 'mailto:hello@3ctrlmedia.com', icon: 'mail' },
+	{ kind: 'WHATSAPP', value: 'Start a quick chat', href: '#', icon: 'wa' },
+];
+---
+
+<footer class="flex flex-col items-center bg-[#08152c] pt-[6.25rem]" data-footer>
+	<div class="flex w-[72.5rem] items-start gap-[5rem]">
+		<div class="flex w-[33.65313rem] shrink-0 flex-col items-start">
+			<Logo />
+			<p class="w-[22.5rem] py-[1.5625rem] text-[1.0625rem] leading-[1.7rem] text-[#a9b5c5]">
+				Clinician-led growth for healthcare brands built to matter.
+			</p>
+		</div>
+		{
+			[
+				{ title: 'EXPLORE', links: explore },
+				{ title: 'MORE', links: more },
+			].map((col) => (
+				<nav class="flex w-[14.42344rem] shrink-0 flex-col items-start" aria-label={col.title}>
+					<p class="h-[1.5rem] pt-[0.5rem] text-[1.125rem] leading-[0.84375rem] tracking-[0.07312rem] whitespace-nowrap text-sun">{col.title}</p>
+					<ul class="flex flex-col gap-[0.8125rem] pt-[1.25rem]">
+						{col.links.map((l) => (
+							<li>
+								<a href={l.href} class="block text-[1rem] leading-[1.3125rem] whitespace-nowrap text-slate-text transition-colors hover:text-white">
+									{l.label}
+								</a>
+							</li>
+						))}
+					</ul>
+				</nav>
+			))
+		}
+	</div>
+
+	<div class="grid w-[72.5rem] grid-cols-3 gap-[0.75rem] border-b-[0.05rem] border-solid border-[#2d3d55] py-[1.5625rem]">
+		{
+			contacts.map((c) => (
+				<a
+					href={c.href}
+					class="group flex items-center gap-[0.8125rem] rounded-[0.625rem] border-[0.05rem] border-solid border-[#30415b] bg-[#0d1c33] p-[1rem] transition-colors hover:border-gold/60"
+					{...(c.href.startsWith('http') ? { target: '_blank', rel: 'noopener' } : {})}
+				>
+					<span class="flex size-[2.625rem] shrink-0 items-center justify-center rounded-full bg-[#1688c2]">
+						{c.icon === 'insta' && <img src={instagram.src} alt="" class="size-[1.125rem]" />}
+						{c.icon === 'mail' && <span class="text-[1.5rem] leading-[1.125rem] font-extrabold text-white">@</span>}
+						{c.icon === 'wa' && <img src={whatsapp.src} alt="" class="size-[1.5rem]" />}
+					</span>
+					<span class="flex min-w-0 flex-1 flex-col">
+						<span class="text-[0.75rem] leading-[0.75rem] tracking-[0.06rem] whitespace-nowrap text-[#7f8da0]">{c.kind}</span>
+						<span class="pt-[0.25rem] text-[0.8125rem] leading-[1.21875rem] font-bold whitespace-nowrap text-white">{c.value}</span>
+					</span>
+					<img
+						src={c.icon === 'insta' ? arrowUpRight.src : arrowSmall.src}
+						alt=""
+						class:list={[
+							'shrink-0 transition-transform duration-300 group-hover:translate-x-[0.125rem] group-hover:-translate-y-[0.125rem]',
+							c.icon === 'insta' ? 'size-[1.25rem]' : 'm-[0.3rem] size-[0.9rem]',
+						]}
+					/>
+				</a>
+			))
+		}
+	</div>
+
+	<div class="flex w-[72.5rem] items-start justify-between pt-[1.5625rem] pb-[2.1875rem]">
+		<p class="text-[0.875rem] leading-[0.9375rem] whitespace-nowrap text-[#718096]">© 2025 3 CTRL Media. All rights reserved.</p>
+		<div class="flex gap-[1.5625rem]">
+			<a href="/privacy" class="text-[0.875rem] leading-[0.9375rem] text-[#718096] transition-colors hover:text-white">Privacy</a>
+			<a href="/terms" class="text-[0.875rem] leading-[0.9375rem] text-[#718096] transition-colors hover:text-white">Terms</a>
+		</div>
+	</div>
+</footer>

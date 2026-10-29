@@ -1,0 +1,113 @@
+---
+import { Image } from 'astro:assets';
+import team from '../../assets/images/why/team.png';
+import check from '../../assets/images/why/check.svg';
+import arrowBlue from '../../assets/images/why/arrow-blue.svg';
+
+const rows = [
+	{ star: '★', name: 'Sarah Mitchell', subject: 'New dermatology appointment', preview: "I'd like to book a skin consultation next week...", time: '10:42', dot: true },
+	{ star: '☆', name: 'Alex Rivera', subject: 'Request to reschedule', preview: 'Can I move my appointment to Thursday afternoon?', time: '9:18', dot: true },
+	{ star: '★', name: 'Jordan Williams', subject: 'Appointment confirmed', preview: 'Perfect, 10:30 AM works for me. Thank you!', time: '8:54', active: true },
+	{ star: '☆', name: 'Nina Patel', subject: 'Patient intake completed', preview: 'My forms are complete and ready for your review.', time: 'Yesterday' },
+];
+
+const points = [
+	'Clinically accurate, culturally relevant content',
+	'Strategy built around real patient journeys',
+	'Compliance-aware creative that still performs',
+];
+---
+
+<section class="relative flex items-center justify-between bg-[#fbf3e9] p-[6.25rem]" id="why-3ctrl" data-gap>
+	<div class="relative h-[44.5rem] w-[37.5rem] shrink-0" data-gap-art>
+		<div class="absolute top-[8.3475rem] left-0 h-[36.17119rem] w-[37.47794rem] overflow-clip rounded-tl-[2.70288rem] rounded-tr-[14.3095rem] rounded-br-[2.70288rem] rounded-bl-[2.70288rem] bg-[#f6f2e9]">
+			<div class="absolute top-[5.9625rem] left-[-5.9625rem] size-[24.64412rem] rounded-full bg-brand opacity-90" data-depth="0.08"></div>
+			<div class="absolute top-[21.17875rem] left-[22.08813rem] flex size-[18.85537rem] items-center justify-center" data-depth="-0.08">
+				<div class="size-[16.69444rem] -rotate-8 rounded-tl-[7.15475rem] rounded-tr-[1.43094rem] rounded-br-[7.15475rem] rounded-bl-[1.43094rem] bg-gold"></div>
+			</div>
+		</div>
+
+		<div class="absolute top-[4.3725rem] left-[1.22125rem] size-[4.37237rem]" aria-hidden="true">
+			<span class="absolute top-[0.32rem] left-[2.63875rem] h-[0.318rem] w-[2.70288rem] rotate-70 rounded-[0.2385rem] bg-gold"></span>
+			<span class="absolute top-[0.285rem] left-[3.45rem] h-[0.318rem] w-[2.70288rem] rotate-105 rounded-[0.2385rem] bg-gold"></span>
+			<span class="absolute top-[0.72188rem] left-[4.13563rem] h-[0.318rem] w-[2.70288rem] rotate-140 rounded-[0.2385rem] bg-gold"></span>
+		</div>
+
+		<div class="absolute top-[9.38063rem] left-[1.1925rem] h-[20.08925rem] w-[17.83844rem]" data-depth="0.18">
+			<div
+				class="flex h-[19.85556rem] w-[17.57406rem] -rotate-[0.77deg] flex-col overflow-clip rounded-[1.10994rem] border-[0.04931rem] border-solid border-[rgba(15,23,42,0.08)] bg-[rgba(255,255,255,0.94)] p-[0.86331rem] opacity-80 shadow-[0_1.35656rem_3.69981rem_0_rgba(15,23,42,0.14)]"
+				aria-hidden="true"
+			>
+				<div class="flex items-center gap-[0.12331rem] px-[0.12331rem] pt-[0.12331rem] pb-[0.73994rem]">
+					<span class="flex size-[1.35656rem] items-center justify-center rounded-[0.43162rem] bg-brand text-[0.555rem] text-white">✉</span>
+					<span class="flex-1 pl-[0.12331rem] text-[0.61662rem] leading-[0.92494rem] font-bold text-ink">Appointment Inbox</span>
+					<span class="flex size-[1.23325rem] items-center justify-center rounded-full bg-mist text-[0.43162rem] font-bold text-brand">4</span>
+				</div>
+				<div class="relative flex gap-[0.86331rem] border-b-[0.04931rem] border-solid border-[rgba(15,23,42,0.07)] px-[0.12331rem] pb-[0.555rem] text-[0.37rem] leading-[0.555rem] font-semibold text-[#64748b]">
+					<span class="relative text-brand">Primary<i class="absolute top-[0.65625rem] left-0 block h-[0.12331rem] w-[1.47994rem] bg-brand"></i></span>
+					<span>Updates</span>
+					<span>Confirmed</span>
+				</div>
+				<ul class="flex flex-col pt-[0.30831rem]">
+					{
+						rows.map((r) => (
+							<li
+								class:list={[
+									'relative grid grid-cols-[0.98687rem_1fr_auto] items-center gap-[0.43162rem] border-b-[0.04931rem] border-solid border-[rgba(15,23,42,0.05)] px-[0.30831rem] py-[0.555rem]',
+									r.active && 'rounded-[0.49331rem] bg-[#edf3ff] pl-[0.49331rem] shadow-[inset_0.185rem_0_0_0_#1e70b8]',
+								]}
+							>
+								<span class="text-center text-[0.555rem] text-[#d8b72e]">{r.star}</span>
+								<span class="min-w-0">
+									<span class="block text-[0.43162rem] leading-[0.64744rem] font-bold text-ink">{r.name}</span>
+									<span class="block text-[0.37rem] leading-[0.4995rem] font-semibold text-ink">{r.subject}</span>
+									<span class="block truncate pt-[0.12331rem] text-[0.32062rem] leading-[0.481rem] text-[#64748b]">{r.preview}</span>
+								</span>
+								<span class="flex flex-col items-end gap-[0.185rem] self-start text-[0.30831rem] leading-[0.4625rem] text-[#64748b]">
+									{r.time}
+									{r.dot && <i class="block size-[0.30831rem] rounded-full bg-brand" />}
+								</span>
+							</li>
+						))
+					}
+				</ul>
+				<div class="mt-[0.37rem] flex items-center justify-between rounded-[0.555rem] bg-ink px-[0.61662rem] py-[0.555rem] text-[0.37rem] leading-[0.555rem] text-white">
+					<span class="opacity-72">4 unread appointment emails</span>
+					<span class="flex size-[0.98662rem] items-center justify-center rounded-full bg-[#25b874]">✉</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="absolute top-[14.32188rem] left-[-3.4375rem] h-[31.25rem] w-[41.9375rem]" data-depth="0.04">
+			<Image src={team} alt="A clinician and a colleague reviewing a tablet together" class="size-full object-contain" widths={[700, 1342]} />
+		</div>
+	</div>
+
+	<div class="relative flex h-[37.0025rem] w-[33.94038rem] shrink-0 flex-col items-start" data-gap-copy>
+		<div class="flex w-full flex-col items-start gap-[1rem]">
+			<span class="inline-flex items-center justify-center rounded-[6.1875rem] bg-gold px-[1rem] py-[0.625rem] text-[1rem] leading-[0.84375rem] font-semibold tracking-[0.0675rem] whitespace-nowrap text-ink uppercase">
+				Why 3ctrl media
+			</span>
+			<h2 class="w-[38.5rem] text-[3.875rem] leading-[4.00962rem] font-bold tracking-[-0.20805rem] text-ink">
+				Healthcare marketing without the translation gap.
+			</h2>
+			<p class="w-[34rem] text-[1.25rem] text-[#64748b]">
+				Most agencies learn healthcare on your time. We started there. Our team combines clinical fluency, creative direction, and commercial strategy from day one.
+			</p>
+		</div>
+		<ul class="flex w-[33.94038rem] flex-col py-[1.75rem]">
+			{
+				points.map((p) => (
+					<li class="flex items-center gap-[0.625rem] border-b-[0.08519rem] border-solid border-[rgba(15,23,42,0.11)] py-[1rem]" data-reveal>
+						<img src={check.src} alt="" class="size-[1.75rem]" />
+						<span class="text-[1.125rem] leading-[1.125rem] font-medium whitespace-nowrap text-ink">{p}</span>
+					</li>
+				))
+			}
+		</ul>
+		<a href="/about" class="group flex items-center gap-[0.5rem] text-[1.5rem] leading-[1.125rem] font-bold whitespace-nowrap text-brand">
+			Meet our team
+			<img src={arrowBlue.src} alt="" class="size-[2.12794rem] transition-transform duration-300 group-hover:translate-x-1" />
+		</a>
+	</div>
+</section>

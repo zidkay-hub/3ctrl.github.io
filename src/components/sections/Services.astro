@@ -1,0 +1,113 @@
+---
+import Tag from '../ui/Tag.astro';
+import Glow from '../ui/Glow.astro';
+import watermark from '../../assets/images/services/watermark.png';
+import sparkBlue from '../../assets/images/services/spark-blue.svg';
+import sparkDark from '../../assets/images/services/spark-dark.svg';
+import chartBlue from '../../assets/images/services/chart-blue.svg';
+import chartWhite from '../../assets/images/services/chart-white.svg';
+import arrowDark from '../../assets/images/services/arrow-dark.svg';
+import arrowWhite from '../../assets/images/services/arrow-white.svg';
+
+const cards = [
+	{
+		title: 'Brand strategy',
+		body: 'Positioning, messaging, and identity built around clinical trust.',
+		href: '/services#brand-strategy',
+		icon: sparkBlue,
+		arrow: arrowDark,
+		card: 'bg-white',
+		iconBg: 'bg-mist',
+		titleColor: 'text-ink',
+		bodyColor: 'text-[#64748b]',
+		ring: 'border-ink',
+		mark: true,
+	},
+	{
+		title: 'Content systems',
+		body: 'High-retention reels, campaigns, and education people remember.',
+		href: '/services#content-systems',
+		icon: chartWhite,
+		arrow: arrowWhite,
+		card: 'bg-brand',
+		iconBg: 'bg-[rgba(255,255,255,0.15)]',
+		titleColor: 'text-white',
+		bodyColor: 'text-[rgba(255,255,255,0.7)]',
+		ring: 'border-white',
+	},
+	{
+		title: 'Patient acquisition',
+		body: 'Full-funnel growth that turns attention into qualified demand.',
+		href: '/services#patient-acquisition',
+		icon: sparkDark,
+		arrow: arrowDark,
+		card: 'bg-gold',
+		iconBg: 'bg-[rgba(255,255,255,0.5)]',
+		titleColor: 'text-ink',
+		bodyColor: 'text-[#64748b]',
+		ring: 'border-ink',
+	},
+	{
+		title: 'Growth intelligence',
+		body: 'Sharp reporting, testing, and optimization without vanity metrics.',
+		href: '/services#growth-intelligence',
+		icon: chartBlue,
+		arrow: arrowDark,
+		card: 'bg-white',
+		iconBg: 'bg-mist',
+		titleColor: 'text-ink',
+		bodyColor: 'text-[#64748b]',
+		ring: 'border-ink',
+		mark: true,
+	},
+];
+---
+
+<section class="relative flex flex-col items-center bg-white p-[6.25rem]" id="services" data-services>
+	<Glow />
+
+	<div class="relative w-full">
+		<div class="flex items-end">
+			<div class="w-[51.69806rem] shrink-0">
+				<Tag class="font-semibold tracking-[0.0675rem]">services</Tag>
+				<h2 class="h-[9.125rem] pt-[1.0625rem] text-[3.875rem] leading-[4.00962rem] font-bold tracking-[-0.20805rem] whitespace-nowrap text-ink">
+					One growth engine.<br />Every lever connected.
+				</h2>
+			</div>
+			<p class="min-w-px flex-1 text-right text-[1.25rem] text-[#64748b]">
+				From strategy to scale, every discipline works together around one measurable goal: meaningful growth.
+			</p>
+		</div>
+
+		<div class="flex h-[26.24906rem] items-end justify-between pt-[3.4375rem]">
+			{
+				cards.map((c) => (
+					<article
+						class={`group relative flex h-[22.8125rem] w-[18.75rem] shrink-0 flex-col overflow-clip rounded-[1.4375rem] border-[0.08519rem] border-solid border-[rgba(15,23,42,0.11)] p-[1.5625rem] ${c.card}`}
+						data-service-card
+					>
+						<span class={`flex size-[3.12469rem] items-center justify-center rounded-[0.875rem] ${c.iconBg}`}>
+							<img src={c.icon.src} alt="" class="size-[1.14894rem]" />
+						</span>
+						<h3 class={`pt-[1.375rem] text-[1.75rem] leading-[1.875rem] font-medium tracking-[-0.04375rem] whitespace-nowrap ${c.titleColor}`}>
+							{c.title}
+						</h3>
+						<p class={`w-[16.375rem] pt-[0.6875rem] text-[1.25rem] leading-[1.875rem] ${c.bodyColor}`}>{c.body}</p>
+						<a
+							href={c.href}
+							aria-label={`Explore ${c.title}`}
+							class={`absolute top-[19.01687rem] left-[15.81375rem] flex size-[2.18744rem] items-center justify-center rounded-full border-[0.08519rem] border-solid transition-transform duration-300 group-hover:translate-x-[-0.25rem] ${c.ring}`}
+						>
+							<img src={c.arrow.src} alt="" class="size-[1.14894rem]" />
+						</a>
+						{c.mark && (
+							<span class="pointer-events-none absolute top-[-1.715rem] left-[10.22438rem] flex size-[11.70631rem] items-center justify-center" aria-hidden="true">
+								<img src={watermark.src} alt="" class="size-[9.375rem] -rotate-17 object-contain opacity-6" />
+							</span>
+						)}
+					</article>
+				))
+			}
+		</div>
+	</div>
+</section>

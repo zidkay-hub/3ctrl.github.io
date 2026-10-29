@@ -1,0 +1,32 @@
+---
+import { Image } from 'astro:assets';
+import doctor from '../../assets/images/quote/doctor.png';
+import ellipse from '../../assets/images/quote/ellipse.svg';
+---
+
+<section class="relative h-[35.51537rem] overflow-hidden bg-brand" id="client-quote" data-quote>
+	<div class="absolute inset-y-0 left-1/2 w-[90rem] -translate-x-1/2">
+		<img src={ellipse.src} alt="" class="absolute top-[8.12187rem] left-[55.125rem] size-[34.9375rem] max-w-none" data-depth="0.06" />
+
+		<div class="absolute top-[6.5625rem] left-[5.96938rem] flex h-[22.39081rem] w-[50.82469rem] flex-col items-start" data-quote-copy>
+			<span class="inline-flex items-center justify-center rounded-[6.1875rem] bg-gold px-[1rem] py-[0.625rem] text-[1rem] leading-[0.84375rem] font-semibold tracking-[0.0675rem] whitespace-nowrap text-ink uppercase">
+				Client perspective
+			</span>
+			<blockquote class="w-[50.875rem] pt-[1.0625rem] text-[2.875rem] leading-[3.88125rem] font-semibold tracking-[-0.115rem] text-white">
+				“They understood the clinical nuance immediately—and still pushed the brand further than any traditional healthcare agency ever had.”
+			</blockquote>
+			<div class="flex w-full flex-col gap-[0.5rem] pt-[2.1875rem] whitespace-nowrap">
+				<p class="text-[2rem] leading-[2rem] font-bold text-gold">Dr. Ali Haddad</p>
+				<p class="text-[1.25rem] text-[rgba(255,255,255,0.5)]">Founder, Derma House</p>
+			</div>
+		</div>
+
+		<div class="absolute top-[1.74687rem] left-[57.9375rem] h-[33.75rem] w-[29.75rem]" data-depth="0.12" data-quote-photo>
+			<Image src={doctor} alt="Dr. Ali Haddad, founder of Derma House" class="size-full object-cover" widths={[476, 952]} />
+		</div>
+
+		<span class="absolute top-[3.085rem] left-[77.5625rem] flex h-[7.01537rem] w-[4.9935rem] items-center justify-center" aria-hidden="true" data-depth="-0.2">
+			<span class="rotate-12 text-[4.25rem] leading-[6.375rem] whitespace-nowrap text-gold">✦</span>
+		</span>
+	</div>
+</section>
