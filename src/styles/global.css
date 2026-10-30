@@ -44,7 +44,8 @@ body {
 .js [data-hero-line],
 .js [data-hero-sub],
 .js [data-hero-cta],
-.js [data-hero-cards] > * {
+.js [data-hero-cards] > *,
+.js [data-hero-fill] {
 	opacity: 0;
 }
 

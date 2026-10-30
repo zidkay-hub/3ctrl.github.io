@@ -408,11 +408,10 @@ const start = 2;
 		const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 		let timer: number | undefined;
 		let visible = false;
-		let hovering = false;
 		let token = 0;
 
 		const videoOf = (card: HTMLElement) => card.querySelector<HTMLVideoElement>('video');
-		const paused = () => reduce || !visible || hovering || document.hidden;
+		const paused = () => reduce || !visible || document.hidden;
 
 		const dwellOf = (card: HTMLElement) => {
 			const video = videoOf(card);
@@ -420,7 +419,7 @@ const start = 2;
 			return Math.min(MAX_MS, Math.max(MIN_MS, video.duration * 1000));
 		};
 
-		/** Only the centre reel plays, and only while the section is in view and not hovered. */
+		/** Only the centre reel plays, and only while the section is in view. */
 		const syncVideos = () => {
 			cards.forEach((card) => {
 				const video = videoOf(card);
@@ -483,10 +482,6 @@ const start = 2;
 			visible = entry.isIntersecting;
 			restart();
 		}, { threshold: 0.35 }).observe(root);
-		root.addEventListener('mouseenter', () => ((hovering = true), restart()));
-		root.addEventListener('mouseleave', () => ((hovering = false), restart()));
-		root.addEventListener('focusin', () => ((hovering = true), restart()));
-		root.addEventListener('focusout', () => ((hovering = false), restart()));
 		document.addEventListener('visibilitychange', restart);
 
 		root.querySelector('[data-t-prev]')?.addEventListener('click', () => go(active - 1));

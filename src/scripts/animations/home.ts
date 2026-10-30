@@ -65,6 +65,7 @@ function hero() {
 			{ y: 0, opacity: 1, duration: 1.1, stagger: { each: 0.09, from: 'center' } },
 			'-=0.9'
 		)
+		.fromTo('[data-hero-fill]', { y: 180, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1, stagger: 0.12 }, '-=0.7')
 		.fromTo('[data-hero-stat]', { scale: 0.6, opacity: 0, transformOrigin: '0% 100%' }, { scale: 1, opacity: 1, duration: 0.7, ease: 'back.out(1.8)' }, '-=0.4');
 }
 
