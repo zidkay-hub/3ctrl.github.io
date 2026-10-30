@@ -49,8 +49,7 @@ function hero() {
 	const root = $('[data-hero]');
 	if (!root) return;
 
-	const stage = $('[data-hero-stage]', root)!;
-	const cards = Array.from(stage.children) as HTMLElement[];
+	const cards = Array.from($('[data-hero-cards]', root)!.children) as HTMLElement[];
 	const phone = $('[data-hero-phone]', root)!;
 	const side = cards.filter((c) => c !== phone);
 

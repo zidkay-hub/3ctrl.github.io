@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 import jamesChen from '../../assets/images/hero/card-c.jpg';
 import mayaHaddad from '../../assets/images/hero/phone-clinician.jpg';
 import sarahWilliams from '../../assets/images/hero/card-blue.jpg';
@@ -7,7 +8,16 @@ import michaelLaurent from '../../assets/images/hero/card-cream.jpg';
 import amaraSingh from '../../assets/images/hero/card-b.jpg';
 
 // Order matters: the initially active slide is index 2 (Dr. James Chen), matching the Figma frame.
-const slides = [
+// Give a slide `video: '/videos/testimonials/name.mp4'` (a file in /public) and it plays in the centre frame
+// for the clip length, clamped to 10-15s. Slides without one hold their photo for 12s.
+const slides: {
+	name: string;
+	role: string;
+	photo: ImageMetadata;
+	quote: string;
+	video?: string;
+	stat?: { value: string; label: string };
+}[] = [
 	{ name: 'Dr. Amara Singh', role: 'Founder, The Skin Collective', photo: amaraSingh, quote: '“3 CTRL Media found the story behind our expertise and gave us a presence that finally felt as credible as the care we provide.”' },
 	{ name: 'Dr. Maya Haddad', role: 'Founder, Derma House', photo: mayaHaddad, quote: '“They understood the clinical nuance immediately—and still pushed the brand further than any traditional healthcare agency ever had.”' },
 	{ name: 'Dr. James Chen', role: 'Medical Director, Forma Health', photo: jamesChen, quote: '“For the first time, our clinical expertise was translated into content patients actually wanted to watch, save, and share.”', stat: { value: '3.6M+', label: 'patients reached in 90 days' } },
@@ -32,6 +42,7 @@ const start = 2;
 			slides.map((s, i) => (
 				<article class="t-card" data-t-card data-index={i} tabindex="0" aria-label={`Testimonial from ${s.name}`}>
 					<Image src={s.photo} alt="" class="t-photo" widths={[480, 640]} />
+					{s.video && <video class="t-video" muted loop playsinline preload="none" data-src={s.video} />}
 					<div class="t-shade"></div>
 					<p class="t-quote">{s.quote}</p>
 					<div class="t-name">
@@ -39,13 +50,14 @@ const start = 2;
 						<p class="t-role">{s.role}</p>
 					</div>
 					<span class="t-play" aria-hidden="true">▶</span>
+					{s.video && <button type="button" class="t-mute" data-t-mute aria-label="Unmute testimonial" aria-pressed="false">🔇</button>}
 					{s.stat && (
 						<div class="t-stat">
 							<p class="t-stat-value">{s.stat.value}</p>
 							<p class="t-stat-label">{s.stat.label}</p>
 						</div>
 					)}
-					<span class="t-progress" aria-hidden="true"></span>
+					<span class="t-progress" aria-hidden="true"><i></i></span>
 				</article>
 			))
 		}
@@ -161,7 +173,8 @@ const start = 2;
 		pointer-events: none;
 	}
 
-	.t-photo {
+	.t-photo,
+	.t-video {
 		position: absolute;
 		inset: 0;
 		width: 100%;
@@ -271,9 +284,49 @@ const start = 2;
 		height: 0.125rem;
 		background: rgba(255, 255, 255, 0.18);
 		opacity: 0;
+		overflow: hidden;
 	}
 	.t-card[data-pos='0'] .t-progress {
 		opacity: 1;
+	}
+	.t-progress i {
+		display: block;
+		height: 100%;
+		width: 0;
+		background: var(--color-gold);
+	}
+	/* Fills over exactly the time the centre reel plays; JS sets --dwell and toggles .t-run. */
+	.t-card.t-run .t-progress i {
+		animation: t-fill var(--dwell, 12s) linear forwards;
+	}
+	@keyframes t-fill {
+		to {
+			width: 100%;
+		}
+	}
+
+	.t-mute {
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+		z-index: 4;
+		display: none;
+		align-items: center;
+		justify-content: center;
+		width: 2.75rem;
+		height: 2.75rem;
+		border-radius: 50%;
+		border: 0.05rem solid rgba(255, 255, 255, 0.2);
+		background: rgba(12, 12, 42, 0.65);
+		backdrop-filter: blur(10px);
+		font-size: 1.1rem;
+		cursor: pointer;
+	}
+	.t-card[data-pos='0'] .t-mute {
+		display: flex;
+	}
+	.t-card[data-pos='0'] .t-stat {
+		right: 4.5rem;
 	}
 
 	.t-arrow {
@@ -304,7 +357,7 @@ const start = 2;
 		width: 0.375rem;
 		height: 0.375rem;
 		border-radius: 0.3125rem;
-		background: #fff;
+		background: #c3d9ef;
 		transition:
 			width 0.4s ease,
 			background 0.4s ease;
@@ -327,7 +380,15 @@ const start = 2;
 		const render = () => {
 			cards.forEach((card, i) => {
 				const pos = ((i - active + 2 + n * 2) % n) - 2;
+				const prev = Number(card.dataset.pos ?? pos);
+				// A card wrapping from one end to the other repositions instantly instead of sweeping across.
+				const wraps = Math.abs(pos - prev) > 2;
+				if (wraps) card.style.transition = 'none';
 				card.dataset.pos = String(pos);
+				if (wraps) {
+					void card.offsetWidth;
+					card.style.transition = '';
+				}
 				card.setAttribute('aria-hidden', pos === 0 ? 'false' : 'true');
 			});
 			dots.forEach((dot, i) => dot.setAttribute('aria-selected', String(i === active)));
@@ -336,7 +397,97 @@ const start = 2;
 		const go = (index: number) => {
 			active = (index + n) % n;
 			render();
+			restart();
 		};
+
+		// Each reel plays in the centre for 10-15s (its clip length, clamped), then the next one slides in
+		// from the right and the finished one slides off to the left.
+		const MIN_MS = 10000;
+		const MAX_MS = 15000;
+		const IMAGE_MS = 12000;
+		const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+		let timer: number | undefined;
+		let visible = false;
+		let hovering = false;
+		let token = 0;
+
+		const videoOf = (card: HTMLElement) => card.querySelector<HTMLVideoElement>('video');
+		const paused = () => reduce || !visible || hovering || document.hidden;
+
+		const dwellOf = (card: HTMLElement) => {
+			const video = videoOf(card);
+			if (!video || !video.getAttribute('src') || video.error || !isFinite(video.duration)) return IMAGE_MS;
+			return Math.min(MAX_MS, Math.max(MIN_MS, video.duration * 1000));
+		};
+
+		/** Only the centre reel plays, and only while the section is in view and not hovered. */
+		const syncVideos = () => {
+			cards.forEach((card) => {
+				const video = videoOf(card);
+				if (!video) return;
+				if (card.dataset.pos === '0' && !paused()) {
+					if (!video.getAttribute('src') && video.dataset.src) video.src = video.dataset.src;
+					video.play().catch(() => {});
+				} else {
+					video.pause();
+				}
+			});
+		};
+
+		const stop = () => {
+			clearTimeout(timer);
+			timer = undefined;
+			token++;
+			cards.forEach((card) => card.classList.remove('t-run'));
+		};
+
+		const restart = () => {
+			stop();
+			syncVideos();
+			if (paused()) return;
+			const mine = token;
+			const card = cards[active];
+			const video = videoOf(card);
+
+			const begin = () => {
+				if (mine !== token) return;
+				const ms = dwellOf(card);
+				root.style.setProperty('--dwell', ms + 'ms');
+				card.classList.remove('t-run');
+				void card.offsetWidth;
+				card.classList.add('t-run');
+				timer = window.setTimeout(() => go(active + 1), ms);
+			};
+
+			// Wait for the clip's length so the 10-15s window is based on the real duration.
+			if (video && video.getAttribute('src') && video.readyState < 1 && !video.error) {
+				video.addEventListener('loadedmetadata', begin, { once: true });
+				video.addEventListener('error', begin, { once: true });
+			} else {
+				begin();
+			}
+		};
+
+		root.querySelectorAll<HTMLButtonElement>('[data-t-mute]').forEach((btn) =>
+			btn.addEventListener('click', (e) => {
+				e.stopPropagation();
+				const video = videoOf(btn.closest<HTMLElement>('[data-t-card]')!);
+				if (!video) return;
+				video.muted = !video.muted;
+				btn.setAttribute('aria-pressed', String(!video.muted));
+				btn.textContent = video.muted ? '🔇' : '🔊';
+			})
+		);
+
+		new IntersectionObserver(([entry]) => {
+			visible = entry.isIntersecting;
+			restart();
+		}, { threshold: 0.35 }).observe(root);
+		root.addEventListener('mouseenter', () => ((hovering = true), restart()));
+		root.addEventListener('mouseleave', () => ((hovering = false), restart()));
+		root.addEventListener('focusin', () => ((hovering = true), restart()));
+		root.addEventListener('focusout', () => ((hovering = false), restart()));
+		document.addEventListener('visibilitychange', restart);
 
 		root.querySelector('[data-t-prev]')?.addEventListener('click', () => go(active - 1));
 		root.querySelector('[data-t-next]')?.addEventListener('click', () => go(active + 1));

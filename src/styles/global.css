@@ -44,7 +44,7 @@ body {
 .js [data-hero-line],
 .js [data-hero-sub],
 .js [data-hero-cta],
-.js [data-hero-stage] > * {
+.js [data-hero-cards] > * {
 	opacity: 0;
 }
 
